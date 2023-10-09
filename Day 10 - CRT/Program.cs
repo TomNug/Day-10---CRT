@@ -23,13 +23,13 @@
     {
         string fetchedInstruction = instructions[instructionPtr];
         instructionPtr++;
-        Console.WriteLine(String.Format("Fetched {0}", fetchedInstruction));
+        //Console.WriteLine(String.Format("Fetched {0}", fetchedInstruction));
 
         // noop
         // noop does nothing, except increment the cycle
         if (fetchedInstruction[0] == 'n')
         {
-            //acc = 0;
+            acc = 0;
             wait = 1;
         } 
         // an addx instruction, which adds the value after 2 cycles
@@ -70,13 +70,13 @@
         while (MoreInstructions() || wait > 0)
         {
             // Format
-            Console.WriteLine();
+            //Console.WriteLine();
 
             // Start
             //Console.WriteLine(String.Format("Start of cycle {0} \tX is {1}\t Acc is {2}\t Wait is {3}", cycle, rX, acc, wait));
             
             // Report the signal strengths at the given times
-            if (cycle == 20 || cycle % 40 == 0)
+            if (cycle == 20 || (cycle-20) % 40 == 0)
             {
                 Console.WriteLine(String.Format("### {0}th cycle\tSignal Strength: {1}", cycle, cycle * rX));
             }
@@ -92,8 +92,8 @@ class Program
 {
     public static void Main(string[] args)
     {
-        string[] instructions = System.IO.File.ReadAllLines(@"C:\Users\Tom\Documents\Advent\Day 10 - CRT\Day 10 - CRT\data_test.txt");
-        //string[] instructions = System.IO.File.ReadAllLines(@"C:\Users\Tom\Documents\Advent\Day 10 - CRT\Day 10 - CRT\data_test_larger.txt");
+        //string[] instructions = System.IO.File.ReadAllLines(@"C:\Users\Tom\Documents\Advent\Day 10 - CRT\Day 10 - CRT\data_test.txt");
+        string[] instructions = System.IO.File.ReadAllLines(@"C:\Users\Tom\Documents\Advent\Day 10 - CRT\Day 10 - CRT\data_test_larger.txt");
 
         CPU cpu = new CPU(instructions);
 
