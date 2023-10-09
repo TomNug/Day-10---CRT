@@ -6,6 +6,7 @@
     private int acc;
     string[] instructions;
     int instructionPtr;
+    int signalSum;
     public bool MoreInstructions()
     {
         return instructionPtr < instructions.Length;
@@ -18,6 +19,11 @@
         acc = 0;
         instructions = inputInstructions;
         instructionPtr = 0;
+        signalSum = 0;
+    }
+    public int GetSignalStrength()
+    {
+        return signalSum;
     }
     public void FetchAndDecode()
     {
@@ -79,6 +85,7 @@
             if (cycle == 20 || (cycle-20) % 40 == 0)
             {
                 Console.WriteLine(String.Format("### {0}th cycle\tSignal Strength: {1}", cycle, cycle * rX));
+                signalSum += cycle * rX;
             }
 
             Tick();
@@ -93,10 +100,15 @@ class Program
     public static void Main(string[] args)
     {
         //string[] instructions = System.IO.File.ReadAllLines(@"C:\Users\Tom\Documents\Advent\Day 10 - CRT\Day 10 - CRT\data_test.txt");
-        string[] instructions = System.IO.File.ReadAllLines(@"C:\Users\Tom\Documents\Advent\Day 10 - CRT\Day 10 - CRT\data_test_larger.txt");
+        //string[] instructions = System.IO.File.ReadAllLines(@"C:\Users\Tom\Documents\Advent\Day 10 - CRT\Day 10 - CRT\data_test_larger.txt");
+        string[] instructions = System.IO.File.ReadAllLines(@"C:\Users\Tom\Documents\Advent\Day 10 - CRT\Day 10 - CRT\data_full.txt");
+
 
         CPU cpu = new CPU(instructions);
 
+        
         cpu.Compute();
+
+        Console.WriteLine(String.Format("Solution is {0}", cpu.GetSignalStrength()));
     }
 }
